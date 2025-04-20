@@ -6,6 +6,7 @@ import Home from "./components/home/Home.jsx";
 import About from "./components/about/About.jsx";
 import Contact from "./components/contact/Contact.jsx";
 import Services from "./components/services/Services.jsx";
+import Popup from "./components/popup/Popup.jsx";
 
 function App() {
   const router = createBrowserRouter([
@@ -28,6 +29,10 @@ function App() {
         {
           path: "services",
           element: <Services />,
+        },
+        {
+          path: "popUp",
+          element: <Popup />,
         },
       ],
     },

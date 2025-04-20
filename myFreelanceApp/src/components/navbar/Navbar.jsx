@@ -31,15 +31,15 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 px-6 py-4 font-[Poppins] border-b shadow-sm transition-all duration-300 ${
+      className={`w-full z-50 px-6 py-4 font-[Poppins] border-b shadow-sm transition-all duration-300 ${
         scrolled
           ? "bg-gray-900 border-gray-900"
-          : "bg-transparent border-transparent"
+          : "bg-gray-900 border-gray-900"
       }`}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between relative z-50">
         <div className="text-2xl font-extrabold text-gray-100 tracking-wide">
-          Logo
+          Datalyst
         </div>
 
         {/* Desktop Menu */}
@@ -88,7 +88,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-gray-900 transition-transform duration-300 z-40 ${
+        className={`fixed top-0 right-0 h-full w-64 bg-gray-900 transition-transform duration-300 z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -134,6 +134,8 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+
+      {/* Popup */}
       <Popup />
     </nav>
   );

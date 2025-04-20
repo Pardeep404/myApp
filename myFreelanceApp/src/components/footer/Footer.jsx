@@ -12,14 +12,15 @@ import {
 
 function Footer() {
   return (
+    
     <footer className="bg-gray-900 text-white py-10 px-6 sm:px-10 font-[Poppins]">
+      
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         {/* Logo & About */}
         <div>
-          <h2 className="text-xl font-bold mb-4">YourCompany</h2>
+          <h2 className="text-xl font-bold mb-4">Datalyst</h2>
           <p className="text-gray-300 text-sm leading-relaxed">
-            We provide top-notch web solutions to help your business grow
-            online. From design to deployment — we’re with you every step.
+          Get started with Datalyst today and unlock the power of data.
           </p>
         </div>
 

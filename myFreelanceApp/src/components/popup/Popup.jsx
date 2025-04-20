@@ -15,7 +15,6 @@ function Popup() {
   const [errors, setErrors] = useState({});
   const selectedCountry = countries.find((c) => c.code === formData.country);
 
-  // Show popup after 15 seconds, repeat every 30 seconds if not submitted
   useEffect(() => {
     const hasSubmitted = localStorage.getItem("formSubmitted");
     if (hasSubmitted) return;
@@ -37,13 +36,11 @@ function Popup() {
     };
   }, []);
 
-  // Close popup and store close time
   const handleClose = () => {
     setIsVisible(false);
     localStorage.setItem("popupClosedAt", Date.now().toString());
   };
 
-  // Validate form fields
   const validate = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
@@ -70,14 +67,12 @@ function Popup() {
     return newErrors;
   };
 
-  // Handle input change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
-  // Submit form
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -88,12 +83,13 @@ function Popup() {
     }
 
     try {
-      const response = await fetch("https://your-backend-api.com/contact", {
+      const response = await fetch("http://localhost:5000/api/popup-contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         mode: "cors",
         body: JSON.stringify(formData),
       });
+      
 
       if (response.ok) {
         setSubmitted(true);
@@ -119,12 +115,11 @@ function Popup() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-opacity-100 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 relative">
-        {/* Close Button */}
         <button
           onClick={handleClose}
-          className="absolute top-3 right-3 text-gray-400 hover:text-gray-600 transition-all"
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition-all"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -142,7 +137,7 @@ function Popup() {
           </svg>
         </button>
 
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-900">
+        <h2 className="text-2xl font-semibold text-center mb-6 text-gray-900">
           Contact Us
         </h2>
 
@@ -159,7 +154,7 @@ function Popup() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                 placeholder="Your name"
               />
               {errors.name && (
@@ -174,7 +169,7 @@ function Popup() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
                 placeholder="you@example.com"
               />
               {errors.email && (
@@ -215,7 +210,7 @@ function Popup() {
                 value={formData.phone}
                 onChange={handleChange}
                 placeholder={selectedCountry?.dialCode || "Phone"}
-                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
               />
             </div>
             {errors.phone && (
@@ -228,12 +223,16 @@ function Popup() {
                 name="service"
                 value={formData.service}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm bg-white"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white"
               >
                 <option value="">Select a service</option>
                 <option value="SEO">SEO</option>
-                <option value="Web Design & Development">Web Design & Development</option>
-                <option value="Social Media Marketing">Social Media Marketing</option>
+                <option value="Web Design & Development">
+                  Web Design & Development
+                </option>
+                <option value="Social Media Marketing">
+                  Social Media Marketing
+                </option>
                 <option value="PPC Advertising">PPC Advertising</option>
                 <option value="Content Marketing">Content Marketing</option>
               </select>
@@ -249,7 +248,7 @@ function Popup() {
                 rows="4"
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none text-sm"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 resize-none text-sm"
                 placeholder="Your message"
               />
               {errors.message && (
@@ -260,7 +259,7 @@ function Popup() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition-all duration-300 text-sm"
+              className="w-full bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-indigo-600 text-white font-semibold py-2 rounded-lg transition-all duration-300 text-sm"
             >
               Send Message
             </button>
