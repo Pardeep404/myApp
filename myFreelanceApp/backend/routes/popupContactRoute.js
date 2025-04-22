@@ -1,22 +1,30 @@
+const PopupContact = require('../models/PopupContact');
 // routes/contact.js
 
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
-router.post('/', (req, res) => {
-  console.log("Request Body:", req.body);
+router.post("/", async (req, res) => {
+  try {
+    const { name, email, country, phone, service, message } = req.body;
 
-  const { name, email, country, phone, service, message } = req.body;
+    // Simple validation
+    if (!name || !email || !country || !phone || !service || !message) {
+      return res
+        .status(400)
+        .json({ success: false, message: "All fields are required." });
+    }
 
-  // Basic validation
-  if (!name || !email || !country || !phone || !service || !message) {
-    return res.status(400).json({ message: 'All fields are required' });
+    const newContact = new PopupContact({ name, email, country, phone, service, message });
+    await newContact.save();
+
+    res
+      .status(201)
+      .json({ success: true, message: "Message saved successfully." });
+  } catch (err) {
+    console.error("❌ Error in contact form:", err);
+    res.status(500).json({ success: false, message: "Server error." });
   }
-
-  console.log("Received contact data:", req.body);
-
-  // Respond with received data
-  res.status(200).json({ message: 'Contact received' });
 });
 
 module.exports = router;

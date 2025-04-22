@@ -89,7 +89,6 @@ function Popup() {
         mode: "cors",
         body: JSON.stringify(formData),
       });
-      
 
       if (response.ok) {
         setSubmitted(true);
@@ -104,6 +103,7 @@ function Popup() {
           message: "",
         });
       } else {
+        console.log(response, "=====================================================")
         alert("Submission failed. Please try again.");
       }
     } catch (error) {
