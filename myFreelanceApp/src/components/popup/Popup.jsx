@@ -93,7 +93,12 @@ function Popup() {
       if (response.ok) {
         setSubmitted(true);
         localStorage.setItem("formSubmitted", "true");
-        setIsVisible(false);
+
+        setTimeout(() => {
+          setIsVisible(false);
+          setSubmitted(false);
+        }, 3000);
+
         setFormData({
           name: "",
           email: "",
@@ -103,7 +108,6 @@ function Popup() {
           message: "",
         });
       } else {
-        console.log(response, "=====================================================")
         alert("Submission failed. Please try again.");
       }
     } catch (error) {
@@ -115,7 +119,7 @@ function Popup() {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
       <div className="bg-white w-full max-w-md rounded-2xl shadow-2xl p-6 relative">
         <button
           onClick={handleClose}
@@ -147,7 +151,6 @@ function Popup() {
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Name */}
             <div>
               <input
                 type="text"
@@ -162,7 +165,6 @@ function Popup() {
               )}
             </div>
 
-            {/* Email */}
             <div>
               <input
                 type="email"
@@ -177,7 +179,6 @@ function Popup() {
               )}
             </div>
 
-            {/* Country + Phone */}
             <div className="flex gap-2">
               <div className="flex items-center gap-1 bg-white border border-gray-300 rounded-lg px-2 py-1 w-40">
                 {selectedCountry?.code ? (
@@ -217,7 +218,6 @@ function Popup() {
               <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
             )}
 
-            {/* Service */}
             <div>
               <select
                 name="service"
@@ -241,7 +241,6 @@ function Popup() {
               )}
             </div>
 
-            {/* Message */}
             <div>
               <textarea
                 name="message"
@@ -256,7 +255,6 @@ function Popup() {
               )}
             </div>
 
-            {/* Submit Button */}
             <button
               type="submit"
               className="w-full bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500 hover:from-indigo-600 hover:to-indigo-600 text-white font-semibold py-2 rounded-lg transition-all duration-300 text-sm"
